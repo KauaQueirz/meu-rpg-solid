@@ -1,6 +1,9 @@
 package rpg.domain.model;
 
 import rpg.domain.contract.HabilidadeEspecial;
+import java.util.List;
+import rpg.domain.acao.Acao;
+import rpg.domain.acao.UsarHabilidade;
 import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
@@ -18,8 +21,8 @@ public class Mago extends Personagem implements HabilidadeEspecial {
     }
 
     @Override
-    public String getNomeHabilidade() {
-        return "Bola de Fogo";
+    public String getChaveHabilidade() {
+        return "skill_fireball";
     }
 
     @Override
@@ -36,6 +39,13 @@ public class Mago extends Personagem implements HabilidadeEspecial {
         mana -= CUSTO_MAGIA;
         notificador.notificar("fireball", getNome(), alvo.getNome());
         alvo.receberDano(getAtaqueTotal() + BONUS_MAGIA, notificador);
+    }
+
+    @Override
+    public List<Acao> getAcoes() {
+        List<Acao> acoes = super.getAcoes();
+        acoes.add(new UsarHabilidade(this));
+        return acoes;
     }
 
     @Override

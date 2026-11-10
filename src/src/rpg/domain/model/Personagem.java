@@ -1,5 +1,9 @@
 package rpg.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import rpg.domain.acao.Acao;
+import rpg.domain.acao.AtaqueBasico;
 import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
@@ -36,6 +40,16 @@ public abstract class Personagem implements Destrutivel {
         int dano = getAtaqueTotal();
         notificador.notificar("attack", nome, alvo.getNome());
         alvo.receberDano(dano, notificador);
+    }
+
+    /**
+     * Ações que o personagem pode escolher no turno. Todos podem atacar; as subclasses
+     * acrescentam as suas (polimorfismo).
+     */
+    public List<Acao> getAcoes() {
+        List<Acao> acoes = new ArrayList<>();
+        acoes.add(new AtaqueBasico(this));
+        return acoes;
     }
 
     /** Ponto de extensão: nos próximos dias, equipamentos somarão bônus aqui. */

@@ -19,5 +19,22 @@ public class MensagensIngles extends MensagensBase {
         textos.put("status_stamina", "{0} - Stamina: {1}/{2}");
         textos.put("status_mana", "{0} - Mana: {1}/{2}");
         textos.put("status_arrows", "{0} - Arrows: {1}/{2}");
+        textos.put("welcome", "=== Projeto RPG - SOLID ===");
+        textos.put("battle_start", "\n>>> A battle begins: {0} appears! <<<");
+        textos.put("round", "\n=== Round {0} ===");
+        textos.put("turn_header", "\n--- {0}''s turn ---");
+        textos.put("menu_option", "  {0}) {1}");
+        textos.put("menu_option_off", "  {0}) {1} (unavailable)");
+        textos.put("menu_prompt", "Choose an action:");
+        textos.put("invalid_option", "Invalid option. Enter a number from 1 to {0}.");
+        textos.put("action_unavailable", "{0} cannot be used right now. Choose another action.");
+        textos.put("battle_won", "Battle won!");
+        textos.put("victory_game", "\nCongratulations! The heroes won the adventure!");
+        textos.put("defeat", "\nAll heroes have fallen. Game over.");
+        textos.put("action_attack", "Basic attack");
+        textos.put("skill_brutal_strike", "Brutal Strike");
+        textos.put("skill_fireball", "Fireball");
+        textos.put("skill_arrow_rain", "Arrow Rain");
+        textos.put("skill_dragon_breath", "Dragon Breath");
     }
 }

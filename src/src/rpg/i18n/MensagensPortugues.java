@@ -20,5 +20,22 @@ public class MensagensPortugues extends MensagensBase {
         textos.put("status_stamina", "{0} - Vigor: {1}/{2}");
         textos.put("status_mana", "{0} - Mana: {1}/{2}");
         textos.put("status_arrows", "{0} - Flechas: {1}/{2}");
+        textos.put("welcome", "=== Projeto RPG - SOLID ===");
+        textos.put("battle_start", "\n>>> Uma batalha começa: {0} aparece! <<<");
+        textos.put("round", "\n=== Rodada {0} ===");
+        textos.put("turn_header", "\n--- Turno de {0} ---");
+        textos.put("menu_option", "  {0}) {1}");
+        textos.put("menu_option_off", "  {0}) {1} (indisponível)");
+        textos.put("menu_prompt", "Escolha uma ação:");
+        textos.put("invalid_option", "Opção inválida. Digite um número de 1 a {0}.");
+        textos.put("action_unavailable", "{0} não pode ser usada agora. Escolha outra ação.");
+        textos.put("battle_won", "Batalha vencida!");
+        textos.put("victory_game", "\nParabéns! Os heróis venceram a aventura!");
+        textos.put("defeat", "\nTodos os heróis caíram. Fim de jogo.");
+        textos.put("action_attack", "Ataque básico");
+        textos.put("skill_brutal_strike", "Golpe Brutal");
+        textos.put("skill_fireball", "Bola de Fogo");
+        textos.put("skill_arrow_rain", "Chuva de Flechas");
+        textos.put("skill_dragon_breath", "Sopro de Fogo");
     }
 }

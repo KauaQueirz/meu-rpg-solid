@@ -1,6 +1,9 @@
 package rpg.domain.model;
 
 import rpg.domain.contract.HabilidadeEspecial;
+import java.util.List;
+import rpg.domain.acao.Acao;
+import rpg.domain.acao.UsarHabilidade;
 import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
@@ -18,8 +21,8 @@ public class Arqueiro extends Personagem implements HabilidadeEspecial {
     }
 
     @Override
-    public String getNomeHabilidade() {
-        return "Chuva de Flechas";
+    public String getChaveHabilidade() {
+        return "skill_arrow_rain";
     }
 
     @Override
@@ -39,6 +42,13 @@ public class Arqueiro extends Personagem implements HabilidadeEspecial {
         if (!alvo.estaDestruido()) {
             alvo.receberDano(getAtaqueTotal() + BONUS_CHUVA, notificador);
         }
+    }
+
+    @Override
+    public List<Acao> getAcoes() {
+        List<Acao> acoes = super.getAcoes();
+        acoes.add(new UsarHabilidade(this));
+        return acoes;
     }
 
     @Override

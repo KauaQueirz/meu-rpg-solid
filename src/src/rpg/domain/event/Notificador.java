@@ -23,4 +23,9 @@ public class Notificador {
     public void notificar(String chave, Object... args) {
         saida.exibir(mensagens.getMensagem(chave, args));
     }
+
+    /** Devolve o texto traduzido sem exibi-lo (útil para montar menus). */
+    public String traduzir(String chave, Object... args) {
+        return mensagens.getMensagem(chave, args);
+    }
 }

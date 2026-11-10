@@ -8,7 +8,8 @@ import rpg.domain.event.Notificador;
  */
 public interface HabilidadeEspecial {
 
-    String getNomeHabilidade();
+    /** Chave de tradução do nome da habilidade (ex.: skill_fireball). */
+    String getChaveHabilidade();
 
     /** Indica se há recurso suficiente (mana, vigor, flechas...) para usar a habilidade agora. */
     boolean podeUsarHabilidade();
