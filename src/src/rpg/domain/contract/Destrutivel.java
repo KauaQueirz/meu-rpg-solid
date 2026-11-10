@@ -1,6 +1,6 @@
 package rpg.domain.contract;
 
-import rpg.domain.event.CombatNotifier;
+import rpg.domain.event.Notificador;
 
 /**
  * Tudo aquilo que pode sofrer dano e ser destruído: personagens, baús, fortalezas...
@@ -10,7 +10,7 @@ import rpg.domain.event.CombatNotifier;
  */
 public interface Destrutivel {
 
-    void receberDano(int valor, CombatNotifier notifier);
+    void receberDano(int valor, Notificador notificador);
 
     boolean estaDestruido();
 

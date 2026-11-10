@@ -1,7 +1,7 @@
 package rpg.domain.model;
 
 import rpg.domain.contract.Destrutivel;
-import rpg.domain.event.CombatNotifier;
+import rpg.domain.event.Notificador;
 
 /**
  * Base abstrata de todos os combatentes (heróis e inimigos).
@@ -9,7 +9,7 @@ import rpg.domain.event.CombatNotifier;
  * Encapsulamento: atributos privados; a vida só muda por receberDano() e curar(),
  * que garantem as regras (nunca abaixo de 0 nem acima do máximo).
  *
- * SRP: a classe não imprime nada; só avisa o CombatNotifier.
+ * SRP: a classe não imprime nada; só avisa o Notificador.
  * LSP: qualquer subclasse pode ser usada onde se espera um Personagem.
  */
 public abstract class Personagem implements Destrutivel {
@@ -32,10 +32,10 @@ public abstract class Personagem implements Destrutivel {
     }
 
     /** Ataque comum. Aceita qualquer Destrutivel (monstro, baú, portão...). */
-    public void atacar(Destrutivel alvo, CombatNotifier notifier) {
+    public void atacar(Destrutivel alvo, Notificador notificador) {
         int dano = getAtaqueTotal();
-        notifier.notify("attack", nome, alvo.getNome());
-        alvo.receberDano(dano, notifier);
+        notificador.notificar("attack", nome, alvo.getNome());
+        alvo.receberDano(dano, notificador);
     }
 
     /** Ponto de extensão: nos próximos dias, equipamentos somarão bônus aqui. */
@@ -44,23 +44,23 @@ public abstract class Personagem implements Destrutivel {
     }
 
     @Override
-    public void receberDano(int valor, CombatNotifier notifier) {
+    public void receberDano(int valor, Notificador notificador) {
         int danoEfetivo = Math.max(1, valor - defesa);
         vidaAtual = Math.max(0, vidaAtual - danoEfetivo);
-        notifier.notify("damage_received", nome, danoEfetivo, vidaAtual);
+        notificador.notificar("damage_received", nome, danoEfetivo, vidaAtual);
         if (estaDestruido()) {
-            notifier.notify("defeated", nome);
+            notificador.notificar("defeated", nome);
         }
     }
 
-    public void curar(int pontos, CombatNotifier notifier) {
+    public void curar(int pontos, Notificador notificador) {
         int antes = vidaAtual;
         vidaAtual = Math.min(vidaMax, vidaAtual + Math.max(0, pontos));
-        notifier.notify("healed", nome, vidaAtual - antes, vidaAtual);
+        notificador.notificar("healed", nome, vidaAtual - antes, vidaAtual);
     }
 
-    public void mostrarStatus(CombatNotifier notifier) {
-        notifier.notify("status", nome, vidaAtual, vidaMax);
+    public void mostrarStatus(Notificador notificador) {
+        notificador.notificar("status", nome, vidaAtual, vidaMax);
     }
 
     @Override

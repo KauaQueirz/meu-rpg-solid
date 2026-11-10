@@ -1,6 +1,6 @@
-# RPG em Console (POO & SOLID)
+# Projeto RPG - SOLID
 
-> Projeto da disciplina de Paradigmas de Programação. Em desenvolvimento.
+> RPG em console desenvolvido em Java para a disciplina de Paradigmas de Programação (POO e princípios SOLID). Em desenvolvimento.
 
 ## Como compilar e executar
 
