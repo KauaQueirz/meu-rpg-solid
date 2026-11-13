@@ -4,7 +4,7 @@ import rpg.domain.event.Notificador;
 
 /**
  * Contrato segregado (ISP): só quem possui habilidade especial o implementa.
- * Um Inimigo simples (Goblin) não é obrigado a ter métodos que não usa, o que também protege o LSP.
+ * Um inimigo simples (Toupeira Broto) não é obrigado a ter métodos que não usa, o que também protege o LSP.
  */
 public interface HabilidadeEspecial {
 

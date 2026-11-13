@@ -6,7 +6,7 @@ import rpg.domain.event.Notificador;
 
 /**
  * Adapta qualquer HabilidadeEspecial para o menu de ações.
- * DIP/ISP: depende apenas da interface HabilidadeEspecial, e não de Mago, Guerreiro etc.
+ * DIP/ISP: depende apenas da interface HabilidadeEspecial, e não de Omori, Aubrey etc.
  */
 public class UsarHabilidade implements Acao {
 

@@ -7,14 +7,18 @@ import rpg.domain.event.Notificador;
 import rpg.domain.item.Item;
 
 /**
- * Base dos adversários (Goblin, Dragao...). É um Personagem como qualquer outro (LSP).
- * Quem não tem habilidade especial simplesmente não implementa HabilidadeEspecial (ISP).
+ * Base dos adversários (Toupeira Broto, Coelho da Floresta, chefes...).
+ * É um Personagem como qualquer outro (LSP). Quem não tem habilidade especial
+ * simplesmente não implementa HabilidadeEspecial (ISP).
  */
 public abstract class Inimigo extends Personagem {
 
     protected Inimigo(String nome, int vidaMax, int ataque, int defesa) {
         super(nome, vidaMax, ataque, defesa);
     }
+
+    /** Chave do texto de apresentação, exibido quando a batalha começa. */
+    public abstract String getChaveIntroducao();
 
     /**
      * IA simples: usa a última ação disponível da lista, que é a mais forte

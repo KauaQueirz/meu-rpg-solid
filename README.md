@@ -1,22 +1,60 @@
 # Projeto RPG - SOLID
 
-RPG de batalhas em turnos para o **console**, desenvolvido em **Java** para a disciplina de Paradigmas de Programação. O objetivo do projeto é aplicar **Programação Orientada a Objetos** e os cinco princípios **SOLID** em uma aplicação funcional.
+RPG de batalhas em turnos para o **console**, desenvolvido em **Java** para a disciplina de Paradigmas de Programação, com tema inspirado no jogo **OMORI**. O objetivo do projeto é aplicar **Programação Orientada a Objetos** e os cinco princípios **SOLID** em uma aplicação funcional.
 
 **Autor:** Kauã Pires (trabalho individual)
 
+> **Aviso:** OMORI é uma obra de OMOCAT. Este é um projeto acadêmico, sem fins lucrativos, que usa apenas nomes de personagens e de elementos como homenagem. Nenhum texto, imagem ou música do jogo original foi copiado; todos os textos foram escritos para este trabalho.
+
+## Como o projeto foi construído
+
+O projeto nasceu como um **RPG de fantasia genérico**, criado para praticar POO e SOLID: um Guerreiro, um Mago e um Arqueiro enfrentavam um Goblin e um Dragão chefão, com poções de cura e equipamentos. Foi essa primeira versão que definiu toda a arquitetura: interfaces pequenas, dependências injetadas pelo construtor, textos separados da lógica e um menu de ações montado dinamicamente.
+
+Com a base funcionando, o tema foi **trocado para o universo de OMORI**:
+
+| Versão genérica | Versão OMORI |
+|---|---|
+| Guerreiro | Aubrey |
+| Arqueiro | Kel |
+| Mago | Hero (agora um personagem de apoio, que cura o grupo) |
+| (novo) | Omori, que entrou como mais um amigo |
+| Goblin | Toupeira Broto e Coelho da Floresta |
+| Dragão (chefão) | Ex-Namorado Espacial e Sweetheart (chefes) |
+| Poção de Cura | Tofu, Doce e Geleia da Vida |
+
+Junto com o tema, a aventura ficou mais longa e mais informativa: passou a ter quatro amigos e quatro batalhas, descanso entre elas, ficha completa a cada turno e narração mais detalhada.
+
+A troca exigiu poucas mudanças porque a arquitetura segue o SOLID: o motor de combate não conhece personagens concretos e os textos ficam isolados nas classes de mensagens. Foi um exemplo prático do **OCP** (estender sem modificar) e do **DIP** (depender de abstrações).
+
 ## O jogo
 
-Três heróis enfrentam, em sequência, um **Goblin** e o chefão **Smaug (Dragão)**. A cada turno, o jogador escolhe pelo terminal a ação de cada herói. O inimigo ataca um herói vivo, sorteado. Se todos os heróis caírem, é derrota; se os inimigos caírem, é vitória.
+Quatro amigos (**Omori, Aubrey, Kel e Hero**) atravessam o Espaço Branco enfrentando quatro batalhas em sequência: **Toupeira Broto**, **Coelho da Floresta**, **Ex-Namorado Espacial** e a chefe final, **Sweetheart**. A cada turno, o jogador escolhe pelo terminal a ação de cada amigo; depois o inimigo ataca um amigo vivo, sorteado. Se todos caírem, é derrota; se vencerem as quatro batalhas, é vitória.
+
+**Os amigos**
 
 | Personagem | Vida | Ataque | Defesa | Habilidade especial | Recurso |
 |---|---|---|---|---|---|
-| Guerreiro (Aragorn) | 45 | 9 | 4 | Golpe Brutal | Vigor (15) |
-| Mago (Luna) | 30 | 7 | 1 | Bola de Fogo | Mana (30) |
-| Arqueiro (Legolas) | 35 | 8 | 2 | Chuva de Flechas (dois disparos) | Flechas (12) |
-| Goblin | 25 | 6 | 1 | nenhuma | nenhum |
-| Dragão (Smaug) | 80 | 14 | 3 | Sopro de Fogo | 3 cargas |
+| Omori | 110 | 12 | 4 | Facada Certeira (+9 de dano) | Foco (20, custo 6) |
+| Aubrey | 140 | 13 | 5 | Tacada Furiosa (+10 de dano) | Coragem (15, custo 5) |
+| Kel | 120 | 11 | 3 | Chuva de Bolas (dois arremessos, +4 cada) | Energia (18, custo 3) |
+| Hero | 100 | 8 | 3 | Banquete de Panquecas (cura 30 de vida de todos os amigos feridos) | Suco (25, custo 8) |
 
-**Itens e inventário:** cada herói começa com 2 Poções de Cura, e o Aragorn leva uma Espada de Ferro (+4 de ataque). Equipamentos precisam ser equipados (gasta um turno). O Goblin deixa como butim uma Armadura de Couro (+2 de defesa). O jogo está disponível em **Português** e **English** (escolha no início).
+**Os inimigos**
+
+| Inimigo | Vida | Ataque | Defesa | Habilidade | Butim |
+|---|---|---|---|---|---|
+| Toupeira Broto | 90 | 24 | 2 | nenhuma | Tofu |
+| Coelho da Floresta | 130 | 32 | 3 | nenhuma | Moletom Quentinho |
+| Ex-Namorado Espacial (chefe) | 220 | 44 | 4 | Raio Espacial (3 cargas, +16) | Geleia da Vida |
+| Sweetheart (chefe final) | 320 | 52 | 5 | Grito Doce (4 cargas, +18) | nenhum |
+
+**Itens**
+
+- **Consumíveis:** Tofu (cura 35), Doce (cura 70) e Geleia da Vida (cura 150). Só podem ser usados por quem está ferido.
+- **Equipamentos:** Faca Brilhante (+6 de ataque, começa com o Omori), Taco de Beisebol (+5 de ataque, começa com a Aubrey) e Moletom Quentinho (+3 de defesa, vem como butim). Equipar gasta o turno, e o equipamento antigo volta para a mochila.
+- **Início:** cada amigo começa com 2 Tofus, e o Hero também leva um Doce.
+
+**Durante o turno**, o jogo mostra a ficha do amigo da vez: barra de vida, recurso, ataque e defesa já com os bônus dos equipamentos, itens equipados e mochila. Cada ataque, habilidade e derrota é narrado em texto. **Entre as batalhas**, os amigos descansam: recuperam parte da vida e do recurso, e quem desmaiou se levanta. O jogo está disponível em **Português** e **English** (escolha no início).
 
 ## Como compilar e executar
 
@@ -47,7 +85,7 @@ java -cp out rpg.app.Main
 
 > Se os acentos aparecerem estranhos no Windows, execute com `java -Dfile.encoding=UTF-8 -cp out rpg.app.Main`.
 
-**Como jogar:** no início, digite `1` (Português) ou `2` (English). Em cada turno, digite o número da ação desejada e aperte Enter. Ações sem recurso aparecem como "indisponível".
+**Como jogar:** no início, digite `1` (Português) ou `2` (English). Em cada turno, digite o número da ação desejada e aperte Enter. Ações sem recurso (ou itens sem utilidade no momento) aparecem como "indisponível". Uma partida completa leva cerca de 50 escolhas.
 
 ## Estrutura do projeto
 
@@ -57,9 +95,10 @@ projeto-rpg-solid/
 │   ├── app/            # Main (ponto de entrada e montagem das dependências)
 │   ├── domain/
 │   │   ├── contract/   # Destrutivel, HabilidadeEspecial
-│   │   ├── model/      # Personagem, Heroi, Guerreiro, Mago, Arqueiro, Inimigo, Goblin, Dragao
+│   │   ├── model/      # Personagem, Aliado, Omori, Aubrey, Kel, Hero,
+│   │   │               # Inimigo, ToupeiraBroto, CoelhoDaFloresta, Chefe, ExNamoradoEspacial, Sweetheart
 │   │   ├── acao/       # Acao, AtaqueBasico, UsarHabilidade, UsarConsumivel, EquiparItem
-│   │   ├── item/       # Item, Consumivel, Equipavel, Slot, PocaoCura, Arma, Armadura, Inventario
+│   │   ├── item/       # Item, Consumivel, Equipavel, Slot, Alimento, Arma, Armadura, Inventario
 │   │   └── event/      # Notificador
 │   ├── i18n/           # Mensagens, MensagensBase, MensagensPortugues, MensagensIngles
 │   ├── presentation/   # Entrada, EntradaConsole, Saida, SaidaConsole
@@ -71,11 +110,11 @@ projeto-rpg-solid/
 
 ## Conceitos de POO aplicados
 
-- **Abstração:** `Personagem`, `Heroi` e `Inimigo` são classes abstratas; `Destrutivel`, `Acao`, `Item` e outras são interfaces.
+- **Abstração:** `Personagem`, `Aliado`, `Inimigo` e `Chefe` são classes abstratas; `Destrutivel`, `Acao`, `Item` e outras são interfaces.
 - **Encapsulamento:** os atributos são `private`. A vida só muda por `receberDano()` e `curar()`, que garantem as regras (nunca abaixo de 0 nem acima do máximo).
-- **Herança:** `Guerreiro`, `Mago` e `Arqueiro` herdam de `Heroi`; `Goblin` e `Dragao` herdam de `Inimigo`; ambos herdam de `Personagem`.
-- **Polimorfismo:** o combate trata todos como `Personagem`/`Heroi`/`Inimigo`. Cada classe responde de seu jeito a `getAcoes()`, `usarHabilidade()` e `agir()`.
-- **Composição e agregação:** o `Heroi` possui seu `Inventario` (composição); o `Inventario` guarda `Item`s que existem de forma independente, como o butim deixado por um inimigo (agregação).
+- **Herança:** `Omori`, `Aubrey`, `Kel` e `Hero` herdam de `Aliado`; `ToupeiraBroto`, `CoelhoDaFloresta` e `Chefe` herdam de `Inimigo`; `ExNamoradoEspacial` e `Sweetheart` herdam de `Chefe`; todos herdam de `Personagem`.
+- **Polimorfismo:** o combate trata todos como `Aliado` ou `Inimigo`. Cada classe responde de seu jeito a `getAcoes()`, `usarHabilidade()`, `agir()` e a como narra seus ataques (`getChaveAtaque()`).
+- **Composição e agregação:** o `Aliado` possui seu `Inventario` (composição); o `Inventario` guarda `Item`s que existem de forma independente, como o butim deixado por um inimigo (agregação). O `Hero` também mantém referências aos amigos que cura (agregação).
 
 ## Diagramas de classes
 
@@ -108,36 +147,48 @@ classDiagram
         +receberDano(int valor, Notificador notificador) void
         +curar(int pontos, Notificador notificador) void
         +mostrarStatus(Notificador notificador) void
+        +mostrarResumo(Notificador notificador) void
         +getAtaqueTotal() int
         +getDefesaTotal() int
         +getAcoes() List~Acao~
     }
-    class Heroi {
+    class Aliado {
         <<abstract>>
         -Inventario inventario
         -Map~Slot,Equipavel~ equipados
         +equipar(Equipavel novo, Notificador notificador) void
-        +getInventario() Inventario
+        +descansar(Notificador notificador) void
+        +mostrarFicha(Notificador notificador) void
         #acoesEspecificas() List~Acao~
+        #restaurarRecurso() void
     }
-    class Guerreiro {
-        -int vigor
+    class Omori {
+        -int foco
     }
-    class Mago {
-        -int mana
+    class Aubrey {
+        -int coragem
     }
-    class Arqueiro {
-        -int flechas
+    class Kel {
+        -int energia
+    }
+    class Hero {
+        -int suco
+        +setAmigos(List~Aliado~ amigos) void
     }
     class Inimigo {
         <<abstract>>
+        +getChaveIntroducao() String
         +agir(Destrutivel alvo, Notificador notificador) void
         +getButim() List~Item~
     }
-    class Goblin
-    class Dragao {
+    class ToupeiraBroto
+    class CoelhoDaFloresta
+    class Chefe {
+        <<abstract>>
         -int cargas
     }
+    class ExNamoradoEspacial
+    class Sweetheart
     class Acao {
         <<interface>>
         +getRotulo(Notificador notificador) String
@@ -150,17 +201,23 @@ classDiagram
     class EquiparItem
 
     Destrutivel <|.. Personagem
-    Personagem <|-- Heroi
+    Personagem <|-- Aliado
     Personagem <|-- Inimigo
-    Heroi <|-- Guerreiro
-    Heroi <|-- Mago
-    Heroi <|-- Arqueiro
-    Inimigo <|-- Goblin
-    Inimigo <|-- Dragao
-    HabilidadeEspecial <|.. Guerreiro
-    HabilidadeEspecial <|.. Mago
-    HabilidadeEspecial <|.. Arqueiro
-    HabilidadeEspecial <|.. Dragao
+    Aliado <|-- Omori
+    Aliado <|-- Aubrey
+    Aliado <|-- Kel
+    Aliado <|-- Hero
+    Inimigo <|-- ToupeiraBroto
+    Inimigo <|-- CoelhoDaFloresta
+    Inimigo <|-- Chefe
+    Chefe <|-- ExNamoradoEspacial
+    Chefe <|-- Sweetheart
+    HabilidadeEspecial <|.. Omori
+    HabilidadeEspecial <|.. Aubrey
+    HabilidadeEspecial <|.. Kel
+    HabilidadeEspecial <|.. Hero
+    HabilidadeEspecial <|.. Chefe
+    Hero o-- Aliado : amigos curados pelo banquete
     Acao <|.. AtaqueBasico
     Acao <|.. UsarHabilidade
     Acao <|.. UsarConsumivel
@@ -168,8 +225,8 @@ classDiagram
     Personagem ..> Acao : monta a lista de ações
     AtaqueBasico --> Personagem : dono
     UsarHabilidade --> HabilidadeEspecial : dono
-    UsarConsumivel --> Heroi : dono
-    EquiparItem --> Heroi : dono
+    UsarConsumivel --> Aliado : dono
+    EquiparItem --> Aliado : dono
 ```
 
 ### Diagrama 2: itens, inventário e equipamentos
@@ -196,7 +253,8 @@ classDiagram
         ARMA
         ARMADURA
     }
-    class PocaoCura {
+    class Alimento {
+        -String chaveNome
         -int pontosDeCura
     }
     class Arma {
@@ -212,7 +270,7 @@ classDiagram
         +getConsumiveis() List~Consumivel~
         +getEquipaveis() List~Equipavel~
     }
-    class Heroi {
+    class Aliado {
         <<abstract>>
     }
     class Inimigo {
@@ -221,13 +279,13 @@ classDiagram
 
     Item <|-- Consumivel
     Item <|-- Equipavel
-    Consumivel <|.. PocaoCura
+    Consumivel <|.. Alimento
     Equipavel <|.. Arma
     Equipavel <|.. Armadura
     Equipavel ..> Slot
-    Heroi *-- Inventario : composição
+    Aliado *-- Inventario : composição
     Inventario o-- Item : agregação
-    Heroi o-- Equipavel : equipados, um por slot
+    Aliado o-- Equipavel : equipados, um por slot
     Inimigo ..> Item : deixa como butim
 ```
 
@@ -239,13 +297,15 @@ classDiagram
         -Entrada entrada
         -Notificador notificador
         -Random sorteio
-        +iniciarAventura(List~Heroi~ herois, List~Inimigo~ inimigos) boolean
+        -int proximoBeneficiado
+        +iniciarAventura(List~Aliado~ aliados, List~Inimigo~ inimigos) boolean
     }
     class Notificador {
         -Saida saida
         -Mensagens mensagens
         +notificar(String chave, Object args) void
         +traduzir(String chave, Object args) String
+        +barra(int atual, int max) String
     }
     class Entrada {
         <<interface>>
@@ -269,7 +329,7 @@ classDiagram
     }
     class MensagensPortugues
     class MensagensIngles
-    class Heroi {
+    class Aliado {
         <<abstract>>
     }
     class Inimigo {
@@ -289,7 +349,7 @@ classDiagram
     Notificador --> Mensagens
     GerenciadorCombate --> Entrada
     GerenciadorCombate --> Notificador
-    GerenciadorCombate --> Heroi
+    GerenciadorCombate --> Aliado
     GerenciadorCombate --> Inimigo
     GerenciadorCombate ..> Acao : monta o menu
     Main ..> GerenciadorCombate : monta e injeta as dependências
@@ -303,56 +363,59 @@ Cada classe tem um único motivo para mudar:
 
 - `SaidaConsole` é a **única** classe que conhece o `System.out`, e `EntradaConsole` é a única que conhece o `Scanner`.
 - `Personagem` e suas subclasses cuidam apenas das regras (vida, dano, habilidades). Elas **não imprimem nada**: apenas avisam o `Notificador` (`notificador.notificar("damage_received", ...)`).
-- `Notificador` apenas liga o domínio à tela: pega o texto no idioma certo (`Mensagens`) e envia para a `Saida`.
-- `GerenciadorCombate` cuida só da ordem dos turnos.
-- `Inventario` cuida só de guardar itens.
+- `Notificador` apenas liga o domínio à tela: pega o texto no idioma certo (`Mensagens`), monta a barra de vida e envia para a `Saida`.
+- `GerenciadorCombate` cuida só da ordem dos turnos, do descanso e da divisão do butim.
+- `Inventario` cuida só de guardar itens, e `Aliado` só de equipar e descrever o que carrega.
 
 ### O: Aberto/Fechado (Open/Closed)
 
 Dá para **estender** sem **modificar** o que já existe:
 
-- `Goblin` e `Dragao` foram adicionados como novas subclasses de `Inimigo`, sem alterar nenhuma classe existente.
-- O menu do jogador é montado a partir de `heroi.getAcoes()`. As ações `UsarConsumivel` e `EquiparItem` entraram no jogo sem que o `turnoDoHeroi` precisasse conhecê-las: basta implementar `Acao`.
+- Os quatro amigos e os quatro inimigos são subclasses de `Aliado` e `Inimigo`. O `Hero`, com uma mecânica própria (cura em grupo), entrou no jogo sem alterar o `GerenciadorCombate`.
+- O menu do jogador é montado a partir de `aliado.getAcoes()`. As ações `UsarConsumivel` e `EquiparItem` entram no jogo sem que o `turnoDoAliado` precise conhecê-las: basta implementar `Acao`.
+- `Chefe` concentra a lógica de habilidade com cargas; `ExNamoradoEspacial` e `Sweetheart` só informam números e textos.
 - Um novo idioma é uma nova subclasse de `MensagensBase` (como `MensagensIngles`), sem mexer no código do jogo.
-- Um novo item é uma nova classe que implementa `Consumivel` ou `Equipavel` (por exemplo, uma `PocaoMana`).
+- Um novo item é uma nova classe que implementa `Consumivel` ou `Equipavel`; novos alimentos (Tofu, Doce, Geleia da Vida) são apenas objetos `Alimento` com valores diferentes.
 
 ### L: Substituição de Liskov (Liskov Substitution)
 
-- O `GerenciadorCombate` usa qualquer `Heroi` e qualquer `Inimigo` sem saber qual é o tipo concreto: `Guerreiro`, `Mago` e `Arqueiro` entram na mesma lista e funcionam igual.
-- `Inimigo.agir()` funciona para `Goblin` e para `Dragao`, mesmo que só um deles tenha habilidade especial.
-- `Heroi` sobrescreve `getAtaqueTotal()` e `getDefesaTotal()` apenas **somando** os bônus de equipamentos, sem quebrar o contrato da classe base.
+- O `GerenciadorCombate` usa qualquer `Aliado` e qualquer `Inimigo` sem saber o tipo concreto: `Omori`, `Aubrey`, `Kel` e `Hero` entram na mesma lista e funcionam igual.
+- `Inimigo.agir()` funciona para `ToupeiraBroto` (sem habilidade) e para os `Chefe`s (com habilidade).
+- `Aliado` sobrescreve `getAtaqueTotal()` e `getDefesaTotal()` apenas **somando** os bônus de equipamentos, sem quebrar o contrato da classe base.
 - Nenhuma subclasse lança exceção por "não saber fazer" algo herdado: quem não tem habilidade não herda esse método (veja ISP).
 
 ### I: Segregação de Interfaces (Interface Segregation)
 
 As interfaces são pequenas e específicas:
 
-- `HabilidadeEspecial` é implementada **somente** por quem tem habilidade (`Guerreiro`, `Mago`, `Arqueiro` e `Dragao`). O `Goblin` não é obrigado a ter métodos vazios.
-- `Consumivel` e `Equipavel` são separadas: uma poção não precisa saber de bônus de ataque, e uma espada não precisa saber "ser usada".
+- `HabilidadeEspecial` é implementada **somente** por quem tem habilidade (os quatro amigos e `Chefe`). `ToupeiraBroto` e `CoelhoDaFloresta` não são obrigados a ter métodos vazios.
+- `Consumivel` e `Equipavel` são separadas: um alimento não precisa saber de bônus de ataque, e uma faca não precisa saber "ser comida".
 - `Entrada` e `Saida` são contratos distintos: quem só exibe texto não precisa saber ler.
 - `Destrutivel` contém apenas o que um alvo precisa oferecer, e por isso um baú ou portão poderia ser atacado do mesmo jeito.
 
 ### D: Inversão de Dependência (Dependency Inversion)
 
-- O `GerenciadorCombate` depende de abstrações (`Entrada`, `Notificador`, `Heroi`, `Inimigo`, `Acao`, `Item`) e **nunca** de `Goblin`, `Mago`, `Scanner` ou `System.out`.
+- O `GerenciadorCombate` depende de abstrações (`Entrada`, `Notificador`, `Aliado`, `Inimigo`, `Acao`, `Item`) e **nunca** de `Omori`, `ToupeiraBroto`, `Scanner` ou `System.out`.
 - O `Notificador` recebe uma `Saida` e uma `Mensagens` (interfaces) **pelo construtor**. Trocar o console por outra tela, ou o português por outro idioma, não exige alterar o domínio.
 - `Personagem.atacar()` recebe um `Destrutivel`, e não um `Personagem`.
-- A classe `Main` é a **única** que escolhe as implementações concretas (`SaidaConsole`, `EntradaConsole`, `MensagensPortugues`, `Goblin`...) e as injeta nas demais.
+- A classe `Main` é a **única** que escolhe as implementações concretas (`SaidaConsole`, `EntradaConsole`, `MensagensPortugues`, `Omori`, `ToupeiraBroto`...) e as injeta nas demais.
 
 ## Capturas de tela
 
-**Escolha de idioma e início da batalha**
+As imagens abaixo foram feitas com o jogo rodando no terminal, na versão em português.
+
+**1. Início do jogo:** escolha do idioma (Português ou English), prólogo da história e apresentação da primeira batalha, contra a Toupeira Broto.
 
 ![Início do jogo](screenshots/01-inicio.png)
 
-**Menu de ações e combate em turnos**
+**2. Combate em turnos:** a ficha do amigo da vez mostra a barra de vida, o recurso da personagem, o ataque e a defesa (já com os bônus dos equipamentos), o que está equipado e a mochila. Abaixo dela fica o menu numerado de ações.
 
 ![Combate](screenshots/02-combate.png)
 
-**Equipando um item e usando uma habilidade**
+**3. Equipamentos e habilidades:** um item sendo equipado e uma habilidade especial sendo usada, com a narração do que aconteceu e a vida do alvo sendo atualizada.
 
 ![Equipamento e habilidade](screenshots/03-equipamento.png)
 
-**Vitória sobre o Dragão**
+**4. Vitória:** mensagem final depois de derrotar a Sweetheart, a última chefe.
 
 ![Vitória](screenshots/04-vitoria.png)

@@ -3,16 +3,16 @@ package rpg.domain.acao;
 import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 import rpg.domain.item.Consumivel;
-import rpg.domain.model.Heroi;
+import rpg.domain.model.Aliado;
 
 /** Usa um consumível do inventário (ex.: poção de cura) em si mesmo e gasta o item. */
 public class UsarConsumivel implements Acao {
 
-    private final Heroi dono;
+    private final Aliado dono;
     private final Consumivel item;
     private final int quantidade;
 
-    public UsarConsumivel(Heroi dono, Consumivel item, int quantidade) {
+    public UsarConsumivel(Aliado dono, Consumivel item, int quantidade) {
         this.dono = dono;
         this.item = item;
         this.quantidade = quantidade;

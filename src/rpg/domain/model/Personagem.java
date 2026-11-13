@@ -8,7 +8,7 @@ import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
 /**
- * Base abstrata de todos os combatentes (heróis e inimigos).
+ * Base abstrata de todos os combatentes (amigos e inimigos).
  *
  * Encapsulamento: atributos privados; a vida só muda por receberDano() e curar(),
  * que garantem as regras (nunca abaixo de 0 nem acima do máximo).
@@ -37,9 +37,18 @@ public abstract class Personagem implements Destrutivel {
 
     /** Ataque comum. Aceita qualquer Destrutivel (monstro, baú, portão...). */
     public void atacar(Destrutivel alvo, Notificador notificador) {
-        int dano = getAtaqueTotal();
-        notificador.notificar("attack", nome, alvo.getNome());
-        alvo.receberDano(dano, notificador);
+        notificador.notificar(getChaveAtaque(), nome, alvo.getNome());
+        alvo.receberDano(getAtaqueTotal(), notificador);
+    }
+
+    /** Cada personagem narra o seu ataque do seu jeito (polimorfismo). */
+    protected String getChaveAtaque() {
+        return "attack";
+    }
+
+    /** Mensagem exibida quando o personagem cai. */
+    protected String getChaveDerrota() {
+        return "defeated";
     }
 
     /**
@@ -52,7 +61,7 @@ public abstract class Personagem implements Destrutivel {
         return acoes;
     }
 
-    /** Ponto de extensão: Heroi soma aqui os bônus dos equipamentos. */
+    /** Ponto de extensão: Aliado soma aqui os bônus dos equipamentos. */
     public int getAtaqueTotal() {
         return ataqueBase;
     }
@@ -65,20 +74,28 @@ public abstract class Personagem implements Destrutivel {
     public void receberDano(int valor, Notificador notificador) {
         int danoEfetivo = Math.max(1, valor - getDefesaTotal());
         vidaAtual = Math.max(0, vidaAtual - danoEfetivo);
-        notificador.notificar("damage_received", nome, danoEfetivo, vidaAtual);
+        notificador.notificar("damage_received", nome, danoEfetivo, vidaAtual, vidaMax,
+                notificador.barra(vidaAtual, vidaMax));
         if (estaDestruido()) {
-            notificador.notificar("defeated", nome);
+            notificador.notificar(getChaveDerrota(), nome);
         }
     }
 
     public void curar(int pontos, Notificador notificador) {
         int antes = vidaAtual;
         vidaAtual = Math.min(vidaMax, vidaAtual + Math.max(0, pontos));
-        notificador.notificar("healed", nome, vidaAtual - antes, vidaAtual);
+        notificador.notificar("healed", nome, vidaAtual - antes, vidaAtual, vidaMax,
+                notificador.barra(vidaAtual, vidaMax));
     }
 
+    /** Linha de vida com barra. As subclasses podem acrescentar o seu recurso (foco, suco...). */
     public void mostrarStatus(Notificador notificador) {
-        notificador.notificar("status", nome, vidaAtual, vidaMax);
+        notificador.notificar("status", nome, vidaAtual, vidaMax, notificador.barra(vidaAtual, vidaMax));
+    }
+
+    /** Resumo de uma linha, usado no início de cada rodada. */
+    public void mostrarResumo(Notificador notificador) {
+        notificador.notificar("summary", nome, vidaAtual, vidaMax, notificador.barra(vidaAtual, vidaMax));
     }
 
     @Override

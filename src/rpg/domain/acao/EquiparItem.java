@@ -3,15 +3,15 @@ package rpg.domain.acao;
 import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 import rpg.domain.item.Equipavel;
-import rpg.domain.model.Heroi;
+import rpg.domain.model.Aliado;
 
 /** Equipa um item da mochila. Gasta o turno, como qualquer outra ação. */
 public class EquiparItem implements Acao {
 
-    private final Heroi dono;
+    private final Aliado dono;
     private final Equipavel item;
 
-    public EquiparItem(Heroi dono, Equipavel item) {
+    public EquiparItem(Aliado dono, Equipavel item) {
         this.dono = dono;
         this.item = item;
     }

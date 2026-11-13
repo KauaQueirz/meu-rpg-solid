@@ -3,18 +3,20 @@ package rpg.domain.item;
 import rpg.domain.event.Notificador;
 import rpg.domain.model.Personagem;
 
-/** Consumível que recupera vida. */
-public class PocaoCura implements Consumivel {
+/** Consumível que recupera vida (Tofu, Doce, Geleia da Vida...). Só muda o nome e a quantidade. */
+public class Alimento implements Consumivel {
 
+    private final String chaveNome;
     private final int pontosDeCura;
 
-    public PocaoCura(int pontosDeCura) {
+    public Alimento(String chaveNome, int pontosDeCura) {
+        this.chaveNome = chaveNome;
         this.pontosDeCura = pontosDeCura;
     }
 
     @Override
     public String getChaveNome() {
-        return "item_health_potion";
+        return chaveNome;
     }
 
     @Override
