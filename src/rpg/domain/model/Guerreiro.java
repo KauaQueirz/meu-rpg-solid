@@ -8,7 +8,7 @@ import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
 /** Herói forte e resistente. Habilidade: Golpe Brutal (consome vigor). */
-public class Guerreiro extends Personagem implements HabilidadeEspecial {
+public class Guerreiro extends Heroi implements HabilidadeEspecial {
 
     private static final int VIGOR_MAX = 15;
     private static final int CUSTO_GOLPE = 5;
@@ -42,10 +42,8 @@ public class Guerreiro extends Personagem implements HabilidadeEspecial {
     }
 
     @Override
-    public List<Acao> getAcoes() {
-        List<Acao> acoes = super.getAcoes();
-        acoes.add(new UsarHabilidade(this));
-        return acoes;
+    protected List<Acao> acoesEspecificas() {
+        return List.of(new UsarHabilidade(this));
     }
 
     @Override

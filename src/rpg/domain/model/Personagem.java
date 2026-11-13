@@ -52,14 +52,18 @@ public abstract class Personagem implements Destrutivel {
         return acoes;
     }
 
-    /** Ponto de extensão: nos próximos dias, equipamentos somarão bônus aqui. */
+    /** Ponto de extensão: Heroi soma aqui os bônus dos equipamentos. */
     public int getAtaqueTotal() {
         return ataqueBase;
     }
 
+    public int getDefesaTotal() {
+        return defesa;
+    }
+
     @Override
     public void receberDano(int valor, Notificador notificador) {
-        int danoEfetivo = Math.max(1, valor - defesa);
+        int danoEfetivo = Math.max(1, valor - getDefesaTotal());
         vidaAtual = Math.max(0, vidaAtual - danoEfetivo);
         notificador.notificar("damage_received", nome, danoEfetivo, vidaAtual);
         if (estaDestruido()) {

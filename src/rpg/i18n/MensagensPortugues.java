@@ -37,5 +37,13 @@ public class MensagensPortugues extends MensagensBase {
         textos.put("skill_fireball", "Bola de Fogo");
         textos.put("skill_arrow_rain", "Chuva de Flechas");
         textos.put("skill_dragon_breath", "Sopro de Fogo");
+        textos.put("item_health_potion", "Poção de Cura");
+        textos.put("item_iron_sword", "Espada de Ferro");
+        textos.put("item_leather_armor", "Armadura de Couro");
+        textos.put("action_use_item", "Usar {0} (x{1})");
+        textos.put("action_equip", "Equipar {0}");
+        textos.put("item_used", "{0} usa {1}.");
+        textos.put("equipped", "{0} equipou {1} (+{2} de ataque, +{3} de defesa).");
+        textos.put("loot_found", "{0} encontrou: {1}!");
     }
 }

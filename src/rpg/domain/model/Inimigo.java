@@ -4,6 +4,7 @@ import java.util.List;
 import rpg.domain.acao.Acao;
 import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
+import rpg.domain.item.Item;
 
 /**
  * Base dos adversários (Goblin, Dragao...). É um Personagem como qualquer outro (LSP).
@@ -27,5 +28,10 @@ public abstract class Inimigo extends Personagem {
                 return;
             }
         }
+    }
+
+    /** Itens deixados ao ser derrotado. Eles continuam existindo depois do inimigo (agregação). */
+    public List<Item> getButim() {
+        return List.of();
     }
 }

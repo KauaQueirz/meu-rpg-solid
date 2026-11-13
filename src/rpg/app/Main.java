@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import rpg.domain.event.Notificador;
+import rpg.domain.item.Arma;
+import rpg.domain.item.PocaoCura;
 import rpg.domain.model.Arqueiro;
 import rpg.domain.model.Dragao;
 import rpg.domain.model.Goblin;
 import rpg.domain.model.Guerreiro;
+import rpg.domain.model.Heroi;
 import rpg.domain.model.Inimigo;
 import rpg.domain.model.Mago;
-import rpg.domain.model.Personagem;
 import rpg.i18n.Mensagens;
 import rpg.i18n.MensagensIngles;
 import rpg.i18n.MensagensPortugues;
@@ -34,7 +36,14 @@ public class Main {
         Notificador notificador = new Notificador(saida, escolherIdioma(saida, entrada));
         notificador.notificar("welcome");
 
-        List<Personagem> herois = List.of(new Guerreiro("Aragorn"), new Mago("Luna"), new Arqueiro("Legolas"));
+        Heroi aragorn = new Guerreiro("Aragorn");
+        aragorn.getInventario().adicionar(new Arma("item_iron_sword", 4));
+        List<Heroi> herois = List.of(aragorn, new Mago("Luna"), new Arqueiro("Legolas"));
+        for (Heroi heroi : herois) {
+            heroi.getInventario().adicionar(new PocaoCura(25));
+            heroi.getInventario().adicionar(new PocaoCura(25));
+        }
+
         List<Inimigo> inimigos = List.of(new Goblin("Goblin"), new Dragao("Smaug"));
 
         new GerenciadorCombate(entrada, notificador, new Random()).iniciarAventura(herois, inimigos);

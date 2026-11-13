@@ -8,7 +8,7 @@ import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
 /** Herói ágil. Habilidade: Chuva de Flechas (dois disparos seguidos, consome flechas). */
-public class Arqueiro extends Personagem implements HabilidadeEspecial {
+public class Arqueiro extends Heroi implements HabilidadeEspecial {
 
     private static final int FLECHAS_MAX = 12;
     private static final int CUSTO_CHUVA = 3;
@@ -45,10 +45,8 @@ public class Arqueiro extends Personagem implements HabilidadeEspecial {
     }
 
     @Override
-    public List<Acao> getAcoes() {
-        List<Acao> acoes = super.getAcoes();
-        acoes.add(new UsarHabilidade(this));
-        return acoes;
+    protected List<Acao> acoesEspecificas() {
+        return List.of(new UsarHabilidade(this));
     }
 
     @Override

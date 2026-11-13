@@ -36,5 +36,13 @@ public class MensagensIngles extends MensagensBase {
         textos.put("skill_fireball", "Fireball");
         textos.put("skill_arrow_rain", "Arrow Rain");
         textos.put("skill_dragon_breath", "Dragon Breath");
+        textos.put("item_health_potion", "Health Potion");
+        textos.put("item_iron_sword", "Iron Sword");
+        textos.put("item_leather_armor", "Leather Armor");
+        textos.put("action_use_item", "Use {0} (x{1})");
+        textos.put("action_equip", "Equip {0}");
+        textos.put("item_used", "{0} uses {1}.");
+        textos.put("equipped", "{0} equipped {1} (+{2} attack, +{3} defense).");
+        textos.put("loot_found", "{0} found: {1}!");
     }
 }

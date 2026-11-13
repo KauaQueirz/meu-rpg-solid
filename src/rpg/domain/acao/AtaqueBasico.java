@@ -14,8 +14,8 @@ public class AtaqueBasico implements Acao {
     }
 
     @Override
-    public String getChaveRotulo() {
-        return "action_attack";
+    public String getRotulo(Notificador notificador) {
+        return notificador.traduzir("action_attack");
     }
 
     @Override

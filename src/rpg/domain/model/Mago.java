@@ -8,7 +8,7 @@ import rpg.domain.contract.Destrutivel;
 import rpg.domain.event.Notificador;
 
 /** Herói frágil com dano elevado. Habilidade: Bola de Fogo (consome mana). */
-public class Mago extends Personagem implements HabilidadeEspecial {
+public class Mago extends Heroi implements HabilidadeEspecial {
 
     private static final int MANA_MAX = 30;
     private static final int CUSTO_MAGIA = 8;
@@ -42,10 +42,8 @@ public class Mago extends Personagem implements HabilidadeEspecial {
     }
 
     @Override
-    public List<Acao> getAcoes() {
-        List<Acao> acoes = super.getAcoes();
-        acoes.add(new UsarHabilidade(this));
-        return acoes;
+    protected List<Acao> acoesEspecificas() {
+        return List.of(new UsarHabilidade(this));
     }
 
     @Override

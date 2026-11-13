@@ -11,10 +11,11 @@ import rpg.domain.event.Notificador;
  */
 public interface Acao {
 
-    /** Chave de tradução do nome da ação (ex.: "action_attack"). */
-    String getChaveRotulo();
+    /** Texto do menu, já traduzido (a própria ação sabe como se apresentar). */
+    String getRotulo(Notificador notificador);
 
     boolean estaDisponivel();
 
+    /** O alvo é o inimigo; ações que afetam o próprio herói (itens) simplesmente o ignoram. */
     void executar(Destrutivel alvo, Notificador notificador);
 }

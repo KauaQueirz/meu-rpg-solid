@@ -17,8 +17,8 @@ public class UsarHabilidade implements Acao {
     }
 
     @Override
-    public String getChaveRotulo() {
-        return dono.getChaveHabilidade();
+    public String getRotulo(Notificador notificador) {
+        return notificador.traduzir(dono.getChaveHabilidade());
     }
 
     @Override
